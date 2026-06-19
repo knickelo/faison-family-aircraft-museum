@@ -67,75 +67,54 @@ Respond ONLY with a JSON object — no markdown, no backticks, no preamble — i
 // ── BADGE LOGO ────────────────────────────────────────────────────────────────
 const BadgeLogo = ({ size = 120 }) => (
   <svg width={size} height={size} viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-    {/* Outer dark circle */}
-    <circle cx="100" cy="100" r="97" fill="#0A0E1A" />
+    {/* Dark background */}
+    <circle cx="100" cy="100" r="100" fill="#0B0F1E" />
     {/* Outer gold ring */}
-    <circle cx="100" cy="100" r="97" fill="none" stroke="#C9A84C" strokeWidth="4" />
+    <circle cx="100" cy="100" r="96" fill="none" stroke="#C9A84C" strokeWidth="3.5" />
     {/* Inner gold ring */}
-    <circle cx="100" cy="100" r="88" fill="none" stroke="#C9A84C" strokeWidth="1.5" />
+    <circle cx="100" cy="100" r="86" fill="none" stroke="#C9A84C" strokeWidth="1.2" />
 
-    {/* Top gold arc band with text */}
-    <path d="M 18 85 A 82 82 0 0 1 182 85 L 174 72 A 74 74 0 0 0 26 72 Z" fill="#C9A84C" />
-
-    {/* Top arc text — dark on gold */}
-    <path id="t1" d="M 26 80 A 74 74 0 0 1 174 80" fill="none" />
-    <text fontFamily="Arial, sans-serif" fontSize="7.5" fill="#0A0E1A" fontWeight="bold" letterSpacing="1.5">
-      <textPath href="#t1" startOffset="9%">1:48 SCALE  •  HISTORY IN MINIATURE</textPath>
+    {/* Top curved text path */}
+    <path id="arcTop" d="M 22 100 A 78 78 0 0 1 178 100" fill="none" />
+    <text fontFamily="Arial, sans-serif" fontSize="8.5" fill="#C9A84C" fontWeight="bold" letterSpacing="2">
+      <textPath href="#arcTop" startOffset="7%">1:48 SCALE  ✦  HISTORY IN MINIATURE</textPath>
     </text>
 
-    {/* Three plane silhouettes across the top arc — simple & clean */}
-    {/* Left plane - propeller */}
-    <g transform="translate(48, 52) rotate(-20) scale(0.5)">
-      <ellipse cx="0" cy="0" rx="4" ry="14" fill="#0A0E1A" />
-      <polygon points="0,-8 -18,2 -16,6 0,-2 16,6 18,2" fill="#0A0E1A" />
-      <polygon points="0,8 -7,14 -6,16 0,10 6,16 7,14" fill="#0A0E1A" />
-    </g>
-    {/* Center plane - jet fighter */}
-    <g transform="translate(100, 42) scale(0.7)">
-      <ellipse cx="0" cy="0" rx="4" ry="18" fill="#0A0E1A" />
-      <polygon points="0,-6 -22,4 -20,9 0,2 20,9 22,4" fill="#0A0E1A" />
-      <polygon points="0,10 -10,18 -8,21 0,13 8,21 10,18" fill="#0A0E1A" />
-      <ellipse cx="0" cy="-17" rx="2.5" ry="3" fill="#0A0E1A" />
-    </g>
-    {/* Right plane */}
-    <g transform="translate(152, 52) rotate(20) scale(0.5)">
-      <ellipse cx="0" cy="0" rx="4" ry="14" fill="#0A0E1A" />
-      <polygon points="0,-8 -18,2 -16,6 0,-2 16,6 18,2" fill="#0A0E1A" />
-      <polygon points="0,8 -7,14 -6,16 0,10 6,16 7,14" fill="#0A0E1A" />
-    </g>
+    {/* Top divider line */}
+    <line x1="30" y1="105" x2="170" y2="105" stroke="#C9A84C" strokeWidth="0.8" opacity="0.5" />
 
-    {/* Main gold banner */}
-    <path d="M 14 122 L 38 106 L 162 106 L 186 122 L 162 148 L 38 148 Z" fill="#C9A84C" />
+    {/* Gold center banner */}
+    <path d="M 18 126 L 44 112 L 156 112 L 182 126 L 156 152 L 44 152 Z" fill="#C9A84C" />
 
-    {/* Side wing swooshes */}
-    <path d="M 14 122 Q 4 112 10 98 Q 28 110 38 106" fill="#0D1628" />
-    <path d="M 186 122 Q 196 112 190 98 Q 172 110 162 106" fill="#0D1628" />
+    {/* Side wing accent triangles */}
+    <path d="M 18 126 L 44 112 L 44 126 Z" fill="#9A7832" />
+    <path d="M 182 126 L 156 112 L 156 126 Z" fill="#9A7832" />
 
-    {/* FAISON — bold dark on gold */}
-    <text x="100" y="128" textAnchor="middle" fill="#0A0E1A" fontSize="22" fontWeight="900" fontFamily="Arial Black, Arial, sans-serif" letterSpacing="4">FAISON</text>
+    {/* FAISON */}
+    <text x="100" y="131" textAnchor="middle" fill="#0B0F1E" fontSize="23" fontWeight="900" fontFamily="Arial Black, Arial, sans-serif" letterSpacing="5">FAISON</text>
 
-    {/* Thin divider */}
-    <line x1="55" y1="132" x2="145" y2="132" stroke="#0A0E1A" strokeWidth="0.8" opacity="0.5" />
+    {/* Thin rule between FAISON and FAMILY */}
+    <line x1="52" y1="135" x2="148" y2="135" stroke="#0B0F1E" strokeWidth="0.6" opacity="0.5" />
 
-    {/* FAMILY — dark navy, clearly readable */}
-    <text x="100" y="140" textAnchor="middle" fill="#0A0E1A" fontSize="9" fontWeight="700" fontFamily="Arial, sans-serif" letterSpacing="4">FAMILY</text>
+    {/* FAMILY */}
+    <text x="100" y="144" textAnchor="middle" fill="#0B0F1E" fontSize="9.5" fontWeight="800" fontFamily="Arial, sans-serif" letterSpacing="5">FAMILY</text>
 
-    {/* Dark strip for AIRCRAFT MUSEUM */}
-    <rect x="42" y="141" width="116" height="10" fill="#0A0E1A" opacity="0.2" rx="0" />
-    <line x1="42" y1="141" x2="158" y2="141" stroke="#0A0E1A" strokeWidth="0.5" opacity="0.4" />
+    {/* Bottom of banner — dark strip for AIRCRAFT MUSEUM */}
+    <path d="M 44 145 L 156 145 L 156 152 L 44 152 Z" fill="#0B0F1E" opacity="0.18" />
+    <line x1="44" y1="145" x2="156" y2="145" stroke="#0B0F1E" strokeWidth="0.5" opacity="0.4" />
+    <text x="100" y="151" textAnchor="middle" fill="#0B0F1E" fontSize="7.5" fontWeight="700" fontFamily="Arial, sans-serif" letterSpacing="2.5">AIRCRAFT MUSEUM</text>
 
-    {/* AIRCRAFT MUSEUM — dark on lower gold */}
-    <text x="100" y="149" textAnchor="middle" fill="#0A0E1A" fontSize="7.5" fontWeight="700" fontFamily="Arial, sans-serif" letterSpacing="2">AIRCRAFT MUSEUM</text>
+    {/* Bottom divider line */}
+    <line x1="30" y1="158" x2="170" y2="158" stroke="#C9A84C" strokeWidth="0.8" opacity="0.5" />
 
-    {/* Star circle at bottom */}
-    <circle cx="100" cy="166" r="12" fill="#0D1628" stroke="#C9A84C" strokeWidth="2" />
-    {/* Star */}
-    <polygon points="100,158 102,163 108,163 103,167 105,172 100,168 95,172 97,167 92,163 98,163" fill="#C9A84C" />
+    {/* Star emblem */}
+    <circle cx="100" cy="171" r="11" fill="#0B0F1E" stroke="#C9A84C" strokeWidth="1.8" />
+    <polygon points="100,163.5 101.8,168.5 107,168.5 102.8,171.5 104.5,176.5 100,173.5 95.5,176.5 97.2,171.5 93,168.5 98.2,168.5" fill="#C9A84C" />
 
-    {/* Bottom arc text — gold so visible on dark */}
-    <path id="b1" d="M 22 172 A 78 78 0 0 0 178 172" fill="none" />
-    <text fontFamily="Arial, sans-serif" fontSize="6" fill="#C9A84C" letterSpacing="1">
-      <textPath href="#b1" startOffset="7%">BUILT WITH PASSION  •  DISPLAYED WITH PRIDE</textPath>
+    {/* Bottom curved text */}
+    <path id="arcBot" d="M 22 100 A 78 78 0 0 0 178 100" fill="none" />
+    <text fontFamily="Arial, sans-serif" fontSize="7" fill="#C9A84C" letterSpacing="1.2">
+      <textPath href="#arcBot" startOffset="8%">BUILT WITH PASSION  ✦  DISPLAYED WITH PRIDE</textPath>
     </text>
   </svg>
 );
