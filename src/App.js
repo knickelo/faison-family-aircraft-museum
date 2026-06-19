@@ -1,13 +1,17 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 
-const SAMPLE_PHOTOS = [
-  { id: 1, title: "F-14 Tomcat", type: "Fighter", era: "Cold War", branch: "US Navy", airline: null, location: "Miramar Airshow", date: "2023-10-14", notes: "Caught this beauty during the Heritage Flight demo", favorite: true, color: "#1B3A5C", icon: "✈️", image: null },
-  { id: 2, title: "B-17 Flying Fortress", type: "Bomber", era: "WWII", branch: "USAF", airline: null, location: "EAA AirVenture, Oshkosh", date: "2023-07-27", notes: "Walked right up under the wing. Incredible.", favorite: true, color: "#3B2F1E", icon: "🛩️", image: null },
-  { id: 3, title: "F-16 Fighting Falcon", type: "Fighter", era: "Modern", branch: "USAF", airline: null, location: "Andrews AFB Open House", date: "2024-05-18", notes: "Thunderbirds demo — perfect lighting", favorite: false, color: "#1A3B2F", icon: "✈️", image: null },
-  { id: 4, title: "Delta 747-400", type: "Commercial", era: "Modern", branch: null, airline: "Delta Air Lines", location: "Atlanta Hartsfield (ATL)", date: "2024-02-03", notes: "Classic Queen of the Skies on her last legs", favorite: false, color: "#1A1A3B", icon: "🛫", image: null },
-  { id: 5, title: "AC-130 Spooky", type: "Gunship", era: "Modern", branch: "USAF", airline: null, location: "Hurlburt Field Airshow", date: "2023-03-11", notes: "Low and slow pass right over the crowd", favorite: false, color: "#2A1A3B", icon: "🛩️", image: null },
-  { id: 6, title: "AH-64 Apache", type: "Helicopter", era: "Modern", branch: "US Army", airline: null, location: "Fort Campbell Open House", date: "2022-09-24", notes: "Demo flight was absolutely jaw-dropping", favorite: true, color: "#1A2F1A", icon: "🚁", image: null },
-];
+const STORAGE_KEY = "faison_museum_photos";
+
+function loadPhotos() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    return saved ? JSON.parse(saved) : [];
+  } catch { return []; }
+}
+
+function savePhotos(photos) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(photos)); } catch {}
+}
 
 const AIRCRAFT_TYPES = ["All","Fighter","Bomber","Commercial","Helicopter","Gunship","Transport"];
 const ERAS = ["All","WWII","Cold War","Modern","Historic"];
@@ -62,61 +66,76 @@ Respond ONLY with a JSON object — no markdown, no backticks, no preamble — i
 
 // ── BADGE LOGO ────────────────────────────────────────────────────────────────
 const BadgeLogo = ({ size = 120 }) => (
-  <svg width={size} height={size} viewBox="0 0 200 200" fill="none">
-    {/* Outer ring */}
-    <circle cx="100" cy="100" r="96" fill="#0A0E1A" stroke="#C9A84C" strokeWidth="4" />
-    <circle cx="100" cy="100" r="88" fill="none" stroke="#C9A84C" strokeWidth="1" />
+  <svg width={size} height={size} viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    {/* Outer dark circle */}
+    <circle cx="100" cy="100" r="97" fill="#0A0E1A" />
+    {/* Outer gold ring */}
+    <circle cx="100" cy="100" r="97" fill="none" stroke="#C9A84C" strokeWidth="4" />
+    {/* Inner gold ring */}
+    <circle cx="100" cy="100" r="88" fill="none" stroke="#C9A84C" strokeWidth="1.5" />
 
-    {/* Top arc text path */}
-    <path id="topArc2" d="M 30 95 A 70 70 0 0 1 170 95" fill="none" />
-    {/* Top gold arc band */}
-    <path d="M 28 92 A 72 72 0 0 1 172 92 L 165 78 A 65 65 0 0 0 35 78 Z" fill="#C9A84C" />
+    {/* Top gold arc band with text */}
+    <path d="M 18 85 A 82 82 0 0 1 182 85 L 174 72 A 74 74 0 0 0 26 72 Z" fill="#C9A84C" />
 
-    {/* Plane silhouette in top arc */}
-    <g transform="translate(100,60) scale(0.55)">
-      {/* Body */}
-      <ellipse cx="0" cy="0" rx="5" ry="20" fill="#0A0E1A" />
-      {/* Wings */}
-      <polygon points="0,-4 -32,8 -28,14 0,6 28,14 32,8" fill="#0A0E1A" />
-      {/* Tail */}
-      <polygon points="0,14 -12,22 -10,26 0,18 10,26 12,22" fill="#0A0E1A" />
-      {/* Nose */}
-      <ellipse cx="0" cy="-20" rx="3" ry="4" fill="#0A0E1A" />
-    </g>
-
-    {/* Top arc label text */}
-    <text fontFamily="Oswald, sans-serif" fontSize="7" fill="#0A0E1A" fontWeight="700" letterSpacing="1.5">
-      <textPath href="#topArc2" startOffset="12%">1:48 SCALE • HISTORY IN MINIATURE</textPath>
+    {/* Top arc text — dark on gold */}
+    <path id="t1" d="M 26 80 A 74 74 0 0 1 174 80" fill="none" />
+    <text fontFamily="Arial, sans-serif" fontSize="7.5" fill="#0A0E1A" fontWeight="bold" letterSpacing="1.5">
+      <textPath href="#t1" startOffset="9%">1:48 SCALE  •  HISTORY IN MINIATURE</textPath>
     </text>
 
-    {/* Main gold banner — taller so all text fits */}
-    <path d="M 16 118 L 40 104 L 160 104 L 184 118 L 160 145 L 40 145 Z" fill="#C9A84C" />
+    {/* Three plane silhouettes across the top arc — simple & clean */}
+    {/* Left plane - propeller */}
+    <g transform="translate(48, 52) rotate(-20) scale(0.5)">
+      <ellipse cx="0" cy="0" rx="4" ry="14" fill="#0A0E1A" />
+      <polygon points="0,-8 -18,2 -16,6 0,-2 16,6 18,2" fill="#0A0E1A" />
+      <polygon points="0,8 -7,14 -6,16 0,10 6,16 7,14" fill="#0A0E1A" />
+    </g>
+    {/* Center plane - jet fighter */}
+    <g transform="translate(100, 42) scale(0.7)">
+      <ellipse cx="0" cy="0" rx="4" ry="18" fill="#0A0E1A" />
+      <polygon points="0,-6 -22,4 -20,9 0,2 20,9 22,4" fill="#0A0E1A" />
+      <polygon points="0,10 -10,18 -8,21 0,13 8,21 10,18" fill="#0A0E1A" />
+      <ellipse cx="0" cy="-17" rx="2.5" ry="3" fill="#0A0E1A" />
+    </g>
+    {/* Right plane */}
+    <g transform="translate(152, 52) rotate(20) scale(0.5)">
+      <ellipse cx="0" cy="0" rx="4" ry="14" fill="#0A0E1A" />
+      <polygon points="0,-8 -18,2 -16,6 0,-2 16,6 18,2" fill="#0A0E1A" />
+      <polygon points="0,8 -7,14 -6,16 0,10 6,16 7,14" fill="#0A0E1A" />
+    </g>
 
-    {/* Wing swooshes on sides of banner */}
-    <path d="M 16 118 Q 6 108 12 96 Q 26 106 40 104" fill="#1B2B4B" opacity="0.6" />
-    <path d="M 184 118 Q 194 108 188 96 Q 174 106 160 104" fill="#1B2B4B" opacity="0.6" />
+    {/* Main gold banner */}
+    <path d="M 14 122 L 38 106 L 162 106 L 186 122 L 162 148 L 38 148 Z" fill="#C9A84C" />
 
-    {/* FAISON — large, dark on gold */}
-    <text x="100" y="122" textAnchor="middle" fill="#0A0E1A" fontSize="20" fontWeight="900" fontFamily="Oswald, sans-serif" letterSpacing="4">FAISON</text>
+    {/* Side wing swooshes */}
+    <path d="M 14 122 Q 4 112 10 98 Q 28 110 38 106" fill="#0D1628" />
+    <path d="M 186 122 Q 196 112 190 98 Q 172 110 162 106" fill="#0D1628" />
 
-    {/* FAMILY — white so it stands out clearly */}
-    <text x="100" y="133" textAnchor="middle" fill="#1B2B4B" fontSize="8" fontWeight="700" fontFamily="Oswald, sans-serif" letterSpacing="3">FAMILY</text>
+    {/* FAISON — bold dark on gold */}
+    <text x="100" y="128" textAnchor="middle" fill="#0A0E1A" fontSize="22" fontWeight="900" fontFamily="Arial Black, Arial, sans-serif" letterSpacing="4">FAISON</text>
 
-    {/* Divider line */}
-    <line x1="50" y1="136" x2="150" y2="136" stroke="#0A0E1A" strokeWidth="0.5" opacity="0.4" />
+    {/* Thin divider */}
+    <line x1="55" y1="132" x2="145" y2="132" stroke="#0A0E1A" strokeWidth="0.8" opacity="0.5" />
 
-    {/* AIRCRAFT MUSEUM — gold on dark strip at bottom of banner */}
-    <rect x="40" y="137" width="120" height="8" fill="#0A0E1A" opacity="0.25" rx="1" />
-    <text x="100" y="143" textAnchor="middle" fill="#0A0E1A" fontSize="7" fontWeight="700" fontFamily="Oswald, sans-serif" letterSpacing="2">AIRCRAFT MUSEUM</text>
+    {/* FAMILY — dark navy, clearly readable */}
+    <text x="100" y="140" textAnchor="middle" fill="#0A0E1A" fontSize="9" fontWeight="700" fontFamily="Arial, sans-serif" letterSpacing="4">FAMILY</text>
 
-    {/* Star badge at bottom */}
-    <circle cx="100" cy="163" r="11" fill="#1B2B4B" stroke="#C9A84C" strokeWidth="1.5" />
-    <polygon points="100,156 102,161 107,161 103,164 105,169 100,166 95,169 97,164 93,161 98,161" fill="#C9A84C" />
+    {/* Dark strip for AIRCRAFT MUSEUM */}
+    <rect x="42" y="141" width="116" height="10" fill="#0A0E1A" opacity="0.2" rx="0" />
+    <line x1="42" y1="141" x2="158" y2="141" stroke="#0A0E1A" strokeWidth="0.5" opacity="0.4" />
 
-    {/* Bottom arc text */}
-    <path id="bottomArc2" d="M 30 168 A 70 70 0 0 0 170 168" fill="none" />
-    <text fontFamily="Oswald, sans-serif" fontSize="5.5" fill="#C9A84C" letterSpacing="1.5">
-      <textPath href="#bottomArc2" startOffset="8%">BUILT WITH PASSION • DISPLAYED WITH PRIDE</textPath>
+    {/* AIRCRAFT MUSEUM — dark on lower gold */}
+    <text x="100" y="149" textAnchor="middle" fill="#0A0E1A" fontSize="7.5" fontWeight="700" fontFamily="Arial, sans-serif" letterSpacing="2">AIRCRAFT MUSEUM</text>
+
+    {/* Star circle at bottom */}
+    <circle cx="100" cy="166" r="12" fill="#0D1628" stroke="#C9A84C" strokeWidth="2" />
+    {/* Star */}
+    <polygon points="100,158 102,163 108,163 103,167 105,172 100,168 95,172 97,167 92,163 98,163" fill="#C9A84C" />
+
+    {/* Bottom arc text — gold so visible on dark */}
+    <path id="b1" d="M 22 172 A 78 78 0 0 0 178 172" fill="none" />
+    <text fontFamily="Arial, sans-serif" fontSize="6" fill="#C9A84C" letterSpacing="1">
+      <textPath href="#b1" startOffset="7%">BUILT WITH PASSION  •  DISPLAYED WITH PRIDE</textPath>
     </text>
   </svg>
 );
@@ -496,7 +515,7 @@ const Slideshow = ({ photos, onClose }) => {
 };
 
 // ── DETAIL MODAL ──────────────────────────────────────────────────────────────
-const Modal = ({ photo, onClose, onToggleFavorite, onUpdatePhoto, onDelete }) => {
+const Modal = ({ photo, onClose, onToggleFavorite, onUpdatePhoto, onDelete, onEdit }) => {
   const fileRef = useRef();
   const [confirmDelete, setConfirmDelete] = useState(false);
   if (!photo) return null;
@@ -541,7 +560,10 @@ const Modal = ({ photo, onClose, onToggleFavorite, onUpdatePhoto, onDelete }) =>
               <div style={{ color: gold, fontFamily: "Roboto Mono, monospace", fontSize: 11, letterSpacing: 2, marginBottom: 4 }}>{photo.type?.toUpperCase()} • {photo.era?.toUpperCase()}</div>
               <div style={{ color: light, fontFamily: "Oswald, sans-serif", fontSize: 26, fontWeight: 700, letterSpacing: 1 }}>{photo.title}</div>
             </div>
-            <button onClick={() => onToggleFavorite(photo.id)} style={{ background: photo.favorite ? gold : "transparent", border: `1px solid ${gold}`, color: photo.favorite ? "#0A0E1A" : gold, borderRadius: 6, padding: "6px 14px", cursor: "pointer", fontFamily: "Oswald, sans-serif", fontSize: 13, letterSpacing: 1 }}>{photo.favorite ? "★ BEST SHOT" : "☆ MARK BEST"}</button>
+            <div style={{ display: "flex", flexDirection: "column", gap: 6, alignItems: "flex-end" }}>
+              <button onClick={() => onToggleFavorite(photo.id)} style={{ background: photo.favorite ? gold : "transparent", border: `1px solid ${gold}`, color: photo.favorite ? "#0A0E1A" : gold, borderRadius: 6, padding: "6px 14px", cursor: "pointer", fontFamily: "Oswald, sans-serif", fontSize: 13, letterSpacing: 1 }}>{photo.favorite ? "★ BEST SHOT" : "☆ MARK BEST"}</button>
+              <button onClick={onEdit} style={{ background: "transparent", border: `1px solid ${steel}`, color: muted, borderRadius: 6, padding: "6px 14px", cursor: "pointer", fontFamily: "Oswald, sans-serif", fontSize: 12, letterSpacing: 1 }}>✏️ EDIT</button>
+            </div>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 16 }}>
             {[
@@ -579,6 +601,59 @@ const Modal = ({ photo, onClose, onToggleFavorite, onUpdatePhoto, onDelete }) =>
             style={{ width: "100%", background: confirmDelete ? "#3B1A1A" : "transparent", border: `1px solid ${confirmDelete ? "#8B3A3A" : "#2A3B5A"}`, borderRadius: 6, padding: "10px", cursor: "pointer", color: confirmDelete ? "#FF6B6B" : "#4A5B7A", fontFamily: "Roboto Mono, monospace", fontSize: 11, letterSpacing: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: 8, transition: "all 0.2s" }}>
             🗑️ {confirmDelete ? "TAP AGAIN TO CONFIRM DELETE" : "REMOVE FROM LOGBOOK"}
           </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ── EDIT MODAL ────────────────────────────────────────────────────────────────
+const EditModal = ({ photo, onClose, onSave }) => {
+  const [form, setForm] = useState({
+    title: photo.title || "",
+    type: photo.type || "Fighter",
+    era: photo.era || "Modern",
+    branch: photo.branch || "USAF",
+    airline: photo.airline || "",
+    location: photo.location || "",
+    date: photo.date || "",
+    notes: photo.notes || "",
+    icon: photo.icon || "✈️",
+  });
+  const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
+  const handleSave = () => {
+    if (!form.title || !form.location || !form.date) return;
+    onSave(photo.id, { ...form });
+    onClose();
+  };
+  const inputStyle = { background: "#0D1628", border: `1px solid ${steel}`, borderRadius: 6, color: light, padding: "8px 12px", fontFamily: "Inter, sans-serif", fontSize: 13, width: "100%", boxSizing: "border-box", outline: "none" };
+  const labelStyle = { color: muted, fontFamily: "Roboto Mono, monospace", fontSize: 9, letterSpacing: 2, display: "block", marginBottom: 4 };
+  return (
+    <div onClick={onClose} style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.92)", zIndex: 1100, display: "flex", alignItems: "center", justifyContent: "center", padding: 20, overflowY: "auto" }}>
+      <div onClick={e => e.stopPropagation()} style={{ background: "#0D1220", border: `1px solid ${gold}`, borderRadius: 12, maxWidth: 520, width: "100%", maxHeight: "92vh", overflowY: "auto", boxShadow: "0 0 60px rgba(201,168,76,0.2)" }}>
+        <div style={{ padding: "20px 24px", borderBottom: `1px solid ${steel}`, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <div>
+            <div style={{ color: gold, fontFamily: "Roboto Mono, monospace", fontSize: 10, letterSpacing: 2 }}>EDIT ENTRY</div>
+            <div style={{ color: light, fontFamily: "Oswald, sans-serif", fontSize: 20, fontWeight: 700 }}>EDIT AIRCRAFT</div>
+          </div>
+          <button onClick={onClose} style={{ background: "none", border: "none", color: muted, fontSize: 20, cursor: "pointer" }}>✕</button>
+        </div>
+        <div style={{ padding: "20px 24px", display: "flex", flexDirection: "column", gap: 14 }}>
+          <div><label style={labelStyle}>AIRCRAFT NAME *</label><input style={inputStyle} value={form.title} onChange={e => set("title", e.target.value)} placeholder="e.g. F-14 Tomcat" /></div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+            <div><label style={labelStyle}>TYPE</label><select style={inputStyle} value={form.type} onChange={e => set("type", e.target.value)}>{["Fighter","Bomber","Transport","Helicopter","Commercial","Gunship","Trainer","Recon"].map(t => <option key={t}>{t}</option>)}</select></div>
+            <div><label style={labelStyle}>ERA</label><select style={inputStyle} value={form.era} onChange={e => set("era", e.target.value)}>{["WWII","Cold War","Modern","Historic","Vintage"].map(t => <option key={t}>{t}</option>)}</select></div>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+            <div><label style={labelStyle}>BRANCH / SERVICE</label><select style={inputStyle} value={form.branch} onChange={e => set("branch", e.target.value)}>{["USAF","US Navy","US Army","Marine Corps","Coast Guard","NATO","Commercial","Other"].map(t => <option key={t}>{t}</option>)}</select></div>
+            <div><label style={labelStyle}>ICON (if no photo)</label><select style={inputStyle} value={form.icon} onChange={e => set("icon", e.target.value)}>{["✈️","🛩️","🚁","🛫","🛬","🪖"].map(t => <option key={t}>{t}</option>)}</select></div>
+          </div>
+          <div><label style={labelStyle}>AIRLINE (if commercial)</label><input style={inputStyle} value={form.airline} onChange={e => set("airline", e.target.value)} placeholder="e.g. Delta Air Lines" /></div>
+          <div><label style={labelStyle}>LOCATION / EVENT *</label><input style={inputStyle} value={form.location} onChange={e => set("location", e.target.value)} placeholder="e.g. EAA AirVenture, Oshkosh" /></div>
+          <div><label style={labelStyle}>DATE *</label><input type="date" style={inputStyle} value={form.date} onChange={e => set("date", e.target.value)} /></div>
+          <div><label style={labelStyle}>FIELD NOTES</label><textarea style={{ ...inputStyle, resize: "vertical", minHeight: 70 }} value={form.notes} onChange={e => set("notes", e.target.value)} placeholder="What made this sighting special?" /></div>
+          <button onClick={handleSave} style={{ background: gold, color: "#0A0E1A", border: "none", borderRadius: 6, padding: "12px", fontFamily: "Oswald, sans-serif", fontSize: 15, fontWeight: 700, letterSpacing: 2, cursor: "pointer", marginTop: 4 }}>SAVE CHANGES</button>
+          <button onClick={onClose} style={{ background: "transparent", color: muted, border: `1px solid ${steel}`, borderRadius: 6, padding: "10px", fontFamily: "Roboto Mono, monospace", fontSize: 11, letterSpacing: 1, cursor: "pointer" }}>CANCEL</button>
         </div>
       </div>
     </div>
@@ -653,17 +728,27 @@ const AddPhotoModal = ({ onClose, onAdd }) => {
 
 // ── MAIN APP ──────────────────────────────────────────────────────────────────
 export default function App() {
-  const [photos, setPhotos] = useState(SAMPLE_PHOTOS);
+  const [photos, setPhotosRaw] = useState(loadPhotos);
   const [view, setView] = useState("home");
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [showAdd, setShowAdd] = useState(false);
   const [showAI, setShowAI] = useState(false);
   const [showSlideshow, setShowSlideshow] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);
   const [filterType, setFilterType] = useState("All");
   const [filterEra, setFilterEra] = useState("All");
   const [filterBranch, setFilterBranch] = useState("All");
   const [search, setSearch] = useState("");
   const [showFavOnly, setShowFavOnly] = useState(false);
+
+  // Wrap setPhotos so every change auto-saves to localStorage
+  const setPhotos = (updater) => {
+    setPhotosRaw(prev => {
+      const next = typeof updater === "function" ? updater(prev) : updater;
+      savePhotos(next);
+      return next;
+    });
+  };
 
   const toggleFavorite = (id) => {
     setPhotos(ps => ps.map(p => p.id === id ? { ...p, favorite: !p.favorite } : p));
@@ -678,6 +763,11 @@ export default function App() {
   const deletePhoto = (id) => {
     setPhotos(ps => ps.filter(p => p.id !== id));
     setSelectedPhoto(null);
+  };
+
+  const editPhoto = (id, updates) => {
+    setPhotos(ps => ps.map(p => p.id === id ? { ...p, ...updates } : p));
+    setSelectedPhoto(sp => sp && sp.id === id ? { ...sp, ...updates } : sp);
   };
 
   const filtered = photos.filter(p => {
@@ -760,26 +850,44 @@ export default function App() {
               ))}
             </div>
 
-            <div style={{ marginBottom: 12, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <div>
-                <div style={{ color: gold, fontFamily: "Roboto Mono, monospace", fontSize: 9, letterSpacing: 2 }}>RECENTLY LOGGED</div>
-                <div style={{ color: light, fontFamily: "Oswald, sans-serif", fontSize: 18, fontWeight: 700 }}>Latest Sightings</div>
+            {/* Empty state — first time welcome */}
+            {photos.length === 0 ? (
+              <div style={{ textAlign: "center", padding: "40px 20px" }}>
+                <div style={{ background: "#0D1628", border: `1px dashed ${steel}`, borderRadius: 16, padding: "48px 32px", maxWidth: 480, margin: "0 auto" }}>
+                  <div style={{ fontSize: 64, marginBottom: 16 }}>✈️</div>
+                  <div style={{ color: gold, fontFamily: "Oswald, sans-serif", fontSize: 22, fontWeight: 700, letterSpacing: 2, marginBottom: 8 }}>WELCOME TO THE MUSEUM</div>
+                  <div style={{ color: muted, fontFamily: "Inter, sans-serif", fontSize: 14, lineHeight: 1.7, marginBottom: 28 }}>
+                    Your logbook is empty and ready for its first entry. Log an aircraft manually, or let the AI identify one from a photo!
+                  </div>
+                  <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
+                    <button onClick={() => setShowAdd(true)} style={{ background: gold, color: "#0A0E1A", border: "none", borderRadius: 8, padding: "12px 24px", fontFamily: "Oswald, sans-serif", fontSize: 14, fontWeight: 700, letterSpacing: 2, cursor: "pointer" }}>+ LOG AIRCRAFT</button>
+                    <button onClick={() => setShowAI(true)} style={{ background: "#1A3B1A", color: "#4CAF50", border: "1px solid #2A6A2A", borderRadius: 8, padding: "12px 24px", fontFamily: "Oswald, sans-serif", fontSize: 14, fontWeight: 700, letterSpacing: 2, cursor: "pointer" }}>🤖 AI IDENTIFY</button>
+                  </div>
+                </div>
               </div>
-              <button onClick={() => setView("gallery")} style={{ background: "none", border: `1px solid ${steel}`, color: muted, padding: "6px 14px", borderRadius: 6, cursor: "pointer", fontFamily: "Roboto Mono, monospace", fontSize: 10, letterSpacing: 1 }}>VIEW ALL →</button>
-            </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 16 }}>
-              {photos.slice(0, 3).map(p => <PlaneCard key={p.id} photo={p} onClick={setSelectedPhoto} onToggleFavorite={toggleFavorite} />)}
-            </div>
-
-            {photos.filter(p => p.favorite).length > 0 && (
+            ) : (
               <>
-                <div style={{ marginTop: 32, marginBottom: 12 }}>
-                  <div style={{ color: gold, fontFamily: "Roboto Mono, monospace", fontSize: 9, letterSpacing: 2 }}>COMMANDER'S SELECTION</div>
-                  <div style={{ color: light, fontFamily: "Oswald, sans-serif", fontSize: 18, fontWeight: 700 }}>Best Shots ★</div>
+                <div style={{ marginBottom: 12, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <div>
+                    <div style={{ color: gold, fontFamily: "Roboto Mono, monospace", fontSize: 9, letterSpacing: 2 }}>RECENTLY LOGGED</div>
+                    <div style={{ color: light, fontFamily: "Oswald, sans-serif", fontSize: 18, fontWeight: 700 }}>Latest Sightings</div>
+                  </div>
+                  <button onClick={() => setView("gallery")} style={{ background: "none", border: `1px solid ${steel}`, color: muted, padding: "6px 14px", borderRadius: 6, cursor: "pointer", fontFamily: "Roboto Mono, monospace", fontSize: 10, letterSpacing: 1 }}>VIEW ALL →</button>
                 </div>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 16 }}>
-                  {photos.filter(p => p.favorite).map(p => <PlaneCard key={p.id} photo={p} onClick={setSelectedPhoto} onToggleFavorite={toggleFavorite} />)}
+                  {photos.slice(0, 3).map(p => <PlaneCard key={p.id} photo={p} onClick={setSelectedPhoto} onToggleFavorite={toggleFavorite} />)}
                 </div>
+                {photos.filter(p => p.favorite).length > 0 && (
+                  <>
+                    <div style={{ marginTop: 32, marginBottom: 12 }}>
+                      <div style={{ color: gold, fontFamily: "Roboto Mono, monospace", fontSize: 9, letterSpacing: 2 }}>COMMANDER'S SELECTION</div>
+                      <div style={{ color: light, fontFamily: "Oswald, sans-serif", fontSize: 18, fontWeight: 700 }}>Best Shots ★</div>
+                    </div>
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 16 }}>
+                      {photos.filter(p => p.favorite).map(p => <PlaneCard key={p.id} photo={p} onClick={setSelectedPhoto} onToggleFavorite={toggleFavorite} />)}
+                    </div>
+                  </>
+                )}
               </>
             )}
           </div>
@@ -935,7 +1043,8 @@ export default function App() {
       </div>
 
       {/* Modals */}
-      {selectedPhoto && <Modal photo={selectedPhoto} onClose={() => setSelectedPhoto(null)} onToggleFavorite={toggleFavorite} onUpdatePhoto={updatePhoto} onDelete={deletePhoto} />}
+      {selectedPhoto && <Modal photo={selectedPhoto} onClose={() => setSelectedPhoto(null)} onToggleFavorite={toggleFavorite} onUpdatePhoto={updatePhoto} onDelete={deletePhoto} onEdit={() => setShowEdit(true)} />}
+      {showEdit && selectedPhoto && <EditModal photo={selectedPhoto} onClose={() => setShowEdit(false)} onSave={editPhoto} />}
       {showAdd && <AddPhotoModal onClose={() => setShowAdd(false)} onAdd={addPhoto} />}
       {showAI && <AIIdentifierModal onClose={() => setShowAI(false)} onAddIdentified={addPhoto} />}
       {showSlideshow && <Slideshow photos={photos} onClose={() => setShowSlideshow(false)} />}
