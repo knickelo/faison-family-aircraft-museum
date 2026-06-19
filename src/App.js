@@ -74,47 +74,42 @@ const BadgeLogo = ({ size = 120 }) => (
     {/* Inner gold ring */}
     <circle cx="100" cy="100" r="86" fill="none" stroke="#C9A84C" strokeWidth="1.2" />
 
-    {/* Top curved text path */}
-    <path id="arcTop" d="M 22 100 A 78 78 0 0 1 178 100" fill="none" />
-    <text fontFamily="Arial, sans-serif" fontSize="8.5" fill="#C9A84C" fontWeight="bold" letterSpacing="2">
-      <textPath href="#arcTop" startOffset="7%">1:48 SCALE  ✦  HISTORY IN MINIATURE</textPath>
+    {/* Top curved text */}
+    <path id="arcTop" d="M 18 98 A 82 82 0 0 1 182 98" fill="none" />
+    <text fontFamily="Arial, sans-serif" fontSize="8" fill="#C9A84C" fontWeight="bold" letterSpacing="1.8">
+      <textPath href="#arcTop" startOffset="5%">1:48 SCALE  ✦  HISTORY IN MINIATURE</textPath>
     </text>
 
-    {/* Top divider line */}
-    <line x1="30" y1="105" x2="170" y2="105" stroke="#C9A84C" strokeWidth="0.8" opacity="0.5" />
+    {/* Gold center banner — wider and taller to fit all text */}
+    <path d="M 12 128 L 40 110 L 160 110 L 188 128 L 160 158 L 40 158 Z" fill="#C9A84C" />
 
-    {/* Gold center banner */}
-    <path d="M 18 126 L 44 112 L 156 112 L 182 126 L 156 152 L 44 152 Z" fill="#C9A84C" />
+    {/* Side wing accent */}
+    <path d="M 12 128 L 40 110 L 40 128 Z" fill="#9A7832" />
+    <path d="M 188 128 L 160 110 L 160 128 Z" fill="#9A7832" />
 
-    {/* Side wing accent triangles */}
-    <path d="M 18 126 L 44 112 L 44 126 Z" fill="#9A7832" />
-    <path d="M 182 126 L 156 112 L 156 126 Z" fill="#9A7832" />
+    {/* FAISON — scaled to fit within banner */}
+    <text x="100" y="132" textAnchor="middle" fill="#0B0F1E" fontSize="22" fontWeight="900" fontFamily="Arial Black, Arial, sans-serif" letterSpacing="4">FAISON</text>
 
-    {/* FAISON */}
-    <text x="100" y="131" textAnchor="middle" fill="#0B0F1E" fontSize="23" fontWeight="900" fontFamily="Arial Black, Arial, sans-serif" letterSpacing="5">FAISON</text>
+    {/* Divider */}
+    <line x1="48" y1="136" x2="152" y2="136" stroke="#0B0F1E" strokeWidth="0.6" opacity="0.4" />
 
-    {/* Thin rule between FAISON and FAMILY */}
-    <line x1="52" y1="135" x2="148" y2="135" stroke="#0B0F1E" strokeWidth="0.6" opacity="0.5" />
+    {/* FAMILY — reduced letter-spacing to prevent overflow */}
+    <text x="100" y="146" textAnchor="middle" fill="#0B0F1E" fontSize="10" fontWeight="800" fontFamily="Arial, sans-serif" letterSpacing="4">FAMILY</text>
 
-    {/* FAMILY */}
-    <text x="100" y="144" textAnchor="middle" fill="#0B0F1E" fontSize="9.5" fontWeight="800" fontFamily="Arial, sans-serif" letterSpacing="5">FAMILY</text>
+    {/* Divider */}
+    <line x1="48" y1="149" x2="152" y2="149" stroke="#0B0F1E" strokeWidth="0.5" opacity="0.3" />
 
-    {/* Bottom of banner — dark strip for AIRCRAFT MUSEUM */}
-    <path d="M 44 145 L 156 145 L 156 152 L 44 152 Z" fill="#0B0F1E" opacity="0.18" />
-    <line x1="44" y1="145" x2="156" y2="145" stroke="#0B0F1E" strokeWidth="0.5" opacity="0.4" />
-    <text x="100" y="151" textAnchor="middle" fill="#0B0F1E" fontSize="7.5" fontWeight="700" fontFamily="Arial, sans-serif" letterSpacing="2.5">AIRCRAFT MUSEUM</text>
-
-    {/* Bottom divider line */}
-    <line x1="30" y1="158" x2="170" y2="158" stroke="#C9A84C" strokeWidth="0.8" opacity="0.5" />
+    {/* AIRCRAFT MUSEUM — smaller, fits comfortably */}
+    <text x="100" y="156" textAnchor="middle" fill="#0B0F1E" fontSize="7" fontWeight="700" fontFamily="Arial, sans-serif" letterSpacing="2">AIRCRAFT MUSEUM</text>
 
     {/* Star emblem */}
-    <circle cx="100" cy="171" r="11" fill="#0B0F1E" stroke="#C9A84C" strokeWidth="1.8" />
-    <polygon points="100,163.5 101.8,168.5 107,168.5 102.8,171.5 104.5,176.5 100,173.5 95.5,176.5 97.2,171.5 93,168.5 98.2,168.5" fill="#C9A84C" />
+    <circle cx="100" cy="172" r="10" fill="#0B0F1E" stroke="#C9A84C" strokeWidth="1.8" />
+    <polygon points="100,165 101.7,169.5 106.5,169.5 102.8,172.5 104.2,177 100,174.2 95.8,177 97.2,172.5 93.5,169.5 98.3,169.5" fill="#C9A84C" />
 
-    {/* Bottom curved text */}
-    <path id="arcBot" d="M 22 100 A 78 78 0 0 0 178 100" fill="none" />
-    <text fontFamily="Arial, sans-serif" fontSize="7" fill="#C9A84C" letterSpacing="1.2">
-      <textPath href="#arcBot" startOffset="8%">BUILT WITH PASSION  ✦  DISPLAYED WITH PRIDE</textPath>
+    {/* Bottom curved text — path goes along bottom of circle */}
+    <path id="arcBot" d="M 16 108 A 84 84 0 0 0 184 108" fill="none" />
+    <text fontFamily="Arial, sans-serif" fontSize="6.5" fill="#C9A84C" letterSpacing="1">
+      <textPath href="#arcBot" startOffset="4%">BUILT WITH PASSION  ✦  DISPLAYED WITH PRIDE</textPath>
     </text>
   </svg>
 );
