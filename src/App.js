@@ -67,49 +67,72 @@ Respond ONLY with a JSON object — no markdown, no backticks, no preamble — i
 // ── BADGE LOGO ────────────────────────────────────────────────────────────────
 const BadgeLogo = ({ size = 120 }) => (
   <svg width={size} height={size} viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-    {/* Dark background */}
-    <circle cx="100" cy="100" r="100" fill="#0B0F1E" />
-    {/* Outer gold ring */}
-    <circle cx="100" cy="100" r="96" fill="none" stroke="#C9A84C" strokeWidth="3.5" />
-    {/* Inner gold ring */}
-    <circle cx="100" cy="100" r="86" fill="none" stroke="#C9A84C" strokeWidth="1.2" />
+    {/* Gold background */}
+    <circle cx="100" cy="100" r="100" fill="#C9A84C" />
+    {/* Outer navy ring */}
+    <circle cx="100" cy="100" r="95" fill="none" stroke="#0B0F1E" strokeWidth="3" />
+    {/* Inner navy ring */}
+    <circle cx="100" cy="100" r="82" fill="none" stroke="#0B0F1E" strokeWidth="1.2" />
 
-    {/* Top curved text */}
-    <path id="arcTop" d="M 18 98 A 82 82 0 0 1 182 98" fill="none" />
-    <text fontFamily="Arial, sans-serif" fontSize="8" fill="#C9A84C" fontWeight="bold" letterSpacing="1.8">
-      <textPath href="#arcTop" startOffset="5%">1:48 SCALE  ✦  HISTORY IN MINIATURE</textPath>
+    {/* Top arc text */}
+    <path id="tArc" d="M 24 100 A 76 76 0 1 1 176 100" fill="none" />
+    <text fontFamily="Arial, sans-serif" fontSize="7.5" fill="#0B0F1E" fontWeight="bold" letterSpacing="1.5">
+      <textPath href="#tArc" startOffset="5%">1:48 SCALE  ✦  HISTORY IN MINIATURE</textPath>
     </text>
 
-    {/* Gold center banner — wider and taller to fit all text */}
-    <path d="M 12 128 L 40 110 L 160 110 L 188 128 L 160 158 L 40 158 Z" fill="#C9A84C" />
+    {/* Three plane silhouettes — navy on gold, simple top-down view */}
+    {/* Left plane */}
+    <g transform="translate(38, 68) rotate(-30) scale(0.38)">
+      <ellipse cx="0" cy="0" rx="5" ry="22" fill="#0B0F1E" />
+      <polygon points="0,-5 -28,8 -24,14 0,4 24,14 28,8" fill="#0B0F1E" />
+      <polygon points="0,12 -12,20 -10,24 0,16 10,24 12,20" fill="#0B0F1E" />
+    </g>
+    {/* Center plane — larger */}
+    <g transform="translate(100, 60) scale(0.52)">
+      <ellipse cx="0" cy="0" rx="5" ry="24" fill="#0B0F1E" />
+      <polygon points="0,-5 -32,9 -28,16 0,5 28,16 32,9" fill="#0B0F1E" />
+      <polygon points="0,14 -14,23 -12,27 0,18 12,27 14,23" fill="#0B0F1E" />
+    </g>
+    {/* Right plane */}
+    <g transform="translate(162, 68) rotate(30) scale(0.38)">
+      <ellipse cx="0" cy="0" rx="5" ry="22" fill="#0B0F1E" />
+      <polygon points="0,-5 -28,8 -24,14 0,4 24,14 28,8" fill="#0B0F1E" />
+      <polygon points="0,12 -12,20 -10,24 0,16 10,24 12,20" fill="#0B0F1E" />
+    </g>
 
-    {/* Side wing accent */}
-    <path d="M 12 128 L 40 110 L 40 128 Z" fill="#9A7832" />
-    <path d="M 188 128 L 160 110 L 160 128 Z" fill="#9A7832" />
+    {/* Navy center ribbon */}
+    <rect x="20" y="112" width="160" height="46" fill="#0B0F1E" />
+    {/* Left point */}
+    <polygon points="20,112 20,158 4,135" fill="#0B0F1E" />
+    {/* Right point */}
+    <polygon points="180,112 180,158 196,135" fill="#0B0F1E" />
+    {/* Gold accent on ribbon sides */}
+    <polygon points="20,112 20,135 4,135" fill="#9A7832" />
+    <polygon points="180,112 180,135 196,135" fill="#9A7832" />
 
-    {/* FAISON — scaled to fit within banner */}
-    <text x="100" y="132" textAnchor="middle" fill="#0B0F1E" fontSize="22" fontWeight="900" fontFamily="Arial Black, Arial, sans-serif" letterSpacing="4">FAISON</text>
+    {/* FAISON — gold on navy */}
+    <text x="100" y="135" textAnchor="middle" fill="#C9A84C" fontSize="24" fontWeight="900" fontFamily="Arial Black, Arial, sans-serif" letterSpacing="5">FAISON</text>
 
     {/* Divider */}
-    <line x1="48" y1="136" x2="152" y2="136" stroke="#0B0F1E" strokeWidth="0.6" opacity="0.4" />
+    <line x1="30" y1="139" x2="170" y2="139" stroke="#C9A84C" strokeWidth="0.7" opacity="0.5" />
 
-    {/* FAMILY — reduced letter-spacing to prevent overflow */}
-    <text x="100" y="146" textAnchor="middle" fill="#0B0F1E" fontSize="10" fontWeight="800" fontFamily="Arial, sans-serif" letterSpacing="4">FAMILY</text>
+    {/* FAMILY — gold on navy */}
+    <text x="100" y="149" textAnchor="middle" fill="#C9A84C" fontSize="10" fontWeight="800" fontFamily="Arial, sans-serif" letterSpacing="5">FAMILY</text>
 
     {/* Divider */}
-    <line x1="48" y1="149" x2="152" y2="149" stroke="#0B0F1E" strokeWidth="0.5" opacity="0.3" />
+    <line x1="30" y1="152" x2="170" y2="152" stroke="#C9A84C" strokeWidth="0.5" opacity="0.4" />
 
-    {/* AIRCRAFT MUSEUM — smaller, fits comfortably */}
-    <text x="100" y="156" textAnchor="middle" fill="#0B0F1E" fontSize="7" fontWeight="700" fontFamily="Arial, sans-serif" letterSpacing="2">AIRCRAFT MUSEUM</text>
+    {/* AIRCRAFT MUSEUM — gold on navy */}
+    <text x="100" y="158" textAnchor="middle" fill="#C9A84C" fontSize="7" fontWeight="700" fontFamily="Arial, sans-serif" letterSpacing="2">AIRCRAFT MUSEUM</text>
 
-    {/* Star emblem */}
-    <circle cx="100" cy="172" r="10" fill="#0B0F1E" stroke="#C9A84C" strokeWidth="1.8" />
-    <polygon points="100,165 101.7,169.5 106.5,169.5 102.8,172.5 104.2,177 100,174.2 95.8,177 97.2,172.5 93.5,169.5 98.3,169.5" fill="#C9A84C" />
+    {/* Star */}
+    <circle cx="100" cy="175" r="10" fill="#C9A84C" stroke="#0B0F1E" strokeWidth="1.8" />
+    <polygon points="100,168 101.8,173 107,173 103,176 104.5,181 100,178 95.5,181 97,176 93,173 98.2,173" fill="#0B0F1E" />
 
-    {/* Bottom curved text — path goes along bottom of circle */}
-    <path id="arcBot" d="M 16 108 A 84 84 0 0 0 184 108" fill="none" />
-    <text fontFamily="Arial, sans-serif" fontSize="6.5" fill="#C9A84C" letterSpacing="1">
-      <textPath href="#arcBot" startOffset="4%">BUILT WITH PASSION  ✦  DISPLAYED WITH PRIDE</textPath>
+    {/* Bottom arc text */}
+    <path id="bArc" d="M 24 100 A 76 76 0 0 0 176 100" fill="none" />
+    <text fontFamily="Arial, sans-serif" fontSize="6.5" fill="#0B0F1E" letterSpacing="0.8">
+      <textPath href="#bArc" startOffset="5%">BUILT WITH PASSION  ✦  DISPLAYED WITH PRIDE</textPath>
     </text>
   </svg>
 );
