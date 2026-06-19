@@ -63,28 +63,60 @@ Respond ONLY with a JSON object — no markdown, no backticks, no preamble — i
 // ── BADGE LOGO ────────────────────────────────────────────────────────────────
 const BadgeLogo = ({ size = 120 }) => (
   <svg width={size} height={size} viewBox="0 0 200 200" fill="none">
+    {/* Outer ring */}
     <circle cx="100" cy="100" r="96" fill="#0A0E1A" stroke="#C9A84C" strokeWidth="4" />
-    <circle cx="100" cy="100" r="86" fill="none" stroke="#C9A84C" strokeWidth="1.5" />
-    <path d="M 30 80 A 75 75 0 0 1 170 80" fill="#C9A84C" />
-    <g transform="translate(60, 35) scale(0.8)">
-      <polygon points="50,5 55,30 80,35 55,38 53,55 47,55 45,38 20,35 45,30" fill="#0A0E1A" />
+    <circle cx="100" cy="100" r="88" fill="none" stroke="#C9A84C" strokeWidth="1" />
+
+    {/* Top arc text path */}
+    <path id="topArc2" d="M 30 95 A 70 70 0 0 1 170 95" fill="none" />
+    {/* Top gold arc band */}
+    <path d="M 28 92 A 72 72 0 0 1 172 92 L 165 78 A 65 65 0 0 0 35 78 Z" fill="#C9A84C" />
+
+    {/* Plane silhouette in top arc */}
+    <g transform="translate(100,60) scale(0.55)">
+      {/* Body */}
+      <ellipse cx="0" cy="0" rx="5" ry="20" fill="#0A0E1A" />
+      {/* Wings */}
+      <polygon points="0,-4 -32,8 -28,14 0,6 28,14 32,8" fill="#0A0E1A" />
+      {/* Tail */}
+      <polygon points="0,14 -12,22 -10,26 0,18 10,26 12,22" fill="#0A0E1A" />
+      {/* Nose */}
+      <ellipse cx="0" cy="-20" rx="3" ry="4" fill="#0A0E1A" />
     </g>
-    <path d="M 20 120 L 40 108 L 160 108 L 180 120 L 160 132 L 40 132 Z" fill="#C9A84C" />
-    <path d="M 25 138 L 175 138 Q 180 150 175 158 L 25 158 Q 20 150 25 138 Z" fill="#1B2B4B" />
-    <text x="100" y="125" textAnchor="middle" fill="#0A0E1A" fontSize="16" fontWeight="900" fontFamily="Oswald, sans-serif" letterSpacing="3">FAISON</text>
-    <text x="100" y="136" textAnchor="middle" fill="#0A0E1A" fontSize="7" fontWeight="700" fontFamily="Oswald, sans-serif" letterSpacing="1.5">FAMILY</text>
-    <text x="100" y="152" textAnchor="middle" fill="#C9A84C" fontSize="5.5" fontFamily="Oswald, sans-serif" letterSpacing="1">AIRCRAFT MUSEUM</text>
-    <circle cx="100" cy="170" r="10" fill="#1B2B4B" stroke="#C9A84C" strokeWidth="1.5" />
-    <polygon points="100,163 102,168 107,168 103,171 105,176 100,173 95,176 97,171 93,168 98,168" fill="#C9A84C" />
-    <path d="M 20 120 Q 10 110 15 100 Q 25 108 40 108" fill="#1B2B4B" />
-    <path d="M 180 120 Q 190 110 185 100 Q 175 108 160 108" fill="#1B2B4B" />
-    <path id="topArc" d="M 35 80 A 65 65 0 0 1 165 80" fill="none" />
-    <text fontSize="6" fill="#0A0E1A" fontFamily="Oswald, sans-serif" letterSpacing="2" fontWeight="700">
-      <textPath href="#topArc" startOffset="10%">1:48 SCALE • HISTORY IN MINIATURE</textPath>
+
+    {/* Top arc label text */}
+    <text fontFamily="Oswald, sans-serif" fontSize="7" fill="#0A0E1A" fontWeight="700" letterSpacing="1.5">
+      <textPath href="#topArc2" startOffset="12%">1:48 SCALE • HISTORY IN MINIATURE</textPath>
     </text>
-    <path id="bottomArc" d="M 35 165 A 65 65 0 0 0 165 165" fill="none" />
-    <text fontSize="5.5" fill="#8B9BB4" fontFamily="Oswald, sans-serif" letterSpacing="1.5">
-      <textPath href="#bottomArc" startOffset="8%">BUILT WITH PASSION • DISPLAYED WITH PRIDE</textPath>
+
+    {/* Main gold banner — taller so all text fits */}
+    <path d="M 16 118 L 40 104 L 160 104 L 184 118 L 160 145 L 40 145 Z" fill="#C9A84C" />
+
+    {/* Wing swooshes on sides of banner */}
+    <path d="M 16 118 Q 6 108 12 96 Q 26 106 40 104" fill="#1B2B4B" opacity="0.6" />
+    <path d="M 184 118 Q 194 108 188 96 Q 174 106 160 104" fill="#1B2B4B" opacity="0.6" />
+
+    {/* FAISON — large, dark on gold */}
+    <text x="100" y="122" textAnchor="middle" fill="#0A0E1A" fontSize="20" fontWeight="900" fontFamily="Oswald, sans-serif" letterSpacing="4">FAISON</text>
+
+    {/* FAMILY — white so it stands out clearly */}
+    <text x="100" y="133" textAnchor="middle" fill="#1B2B4B" fontSize="8" fontWeight="700" fontFamily="Oswald, sans-serif" letterSpacing="3">FAMILY</text>
+
+    {/* Divider line */}
+    <line x1="50" y1="136" x2="150" y2="136" stroke="#0A0E1A" strokeWidth="0.5" opacity="0.4" />
+
+    {/* AIRCRAFT MUSEUM — gold on dark strip at bottom of banner */}
+    <rect x="40" y="137" width="120" height="8" fill="#0A0E1A" opacity="0.25" rx="1" />
+    <text x="100" y="143" textAnchor="middle" fill="#0A0E1A" fontSize="7" fontWeight="700" fontFamily="Oswald, sans-serif" letterSpacing="2">AIRCRAFT MUSEUM</text>
+
+    {/* Star badge at bottom */}
+    <circle cx="100" cy="163" r="11" fill="#1B2B4B" stroke="#C9A84C" strokeWidth="1.5" />
+    <polygon points="100,156 102,161 107,161 103,164 105,169 100,166 95,169 97,164 93,161 98,161" fill="#C9A84C" />
+
+    {/* Bottom arc text */}
+    <path id="bottomArc2" d="M 30 168 A 70 70 0 0 0 170 168" fill="none" />
+    <text fontFamily="Oswald, sans-serif" fontSize="5.5" fill="#C9A84C" letterSpacing="1.5">
+      <textPath href="#bottomArc2" startOffset="8%">BUILT WITH PASSION • DISPLAYED WITH PRIDE</textPath>
     </text>
   </svg>
 );
@@ -464,8 +496,9 @@ const Slideshow = ({ photos, onClose }) => {
 };
 
 // ── DETAIL MODAL ──────────────────────────────────────────────────────────────
-const Modal = ({ photo, onClose, onToggleFavorite, onUpdatePhoto }) => {
+const Modal = ({ photo, onClose, onToggleFavorite, onUpdatePhoto, onDelete }) => {
   const fileRef = useRef();
+  const [confirmDelete, setConfirmDelete] = useState(false);
   if (!photo) return null;
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
@@ -473,6 +506,14 @@ const Modal = ({ photo, onClose, onToggleFavorite, onUpdatePhoto }) => {
     const reader = new FileReader();
     reader.onload = (ev) => onUpdatePhoto(photo.id, { image: ev.target.result });
     reader.readAsDataURL(file);
+  };
+  const handleDelete = () => {
+    if (confirmDelete) {
+      onDelete(photo.id);
+      onClose();
+    } else {
+      setConfirmDelete(true);
+    }
   };
   return (
     <div onClick={onClose} style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.88)", zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center", padding: 20, overflowY: "auto" }}>
@@ -527,8 +568,16 @@ const Modal = ({ photo, onClose, onToggleFavorite, onUpdatePhoto }) => {
               <div style={{ color: light, fontFamily: "Inter, sans-serif", fontSize: 13, lineHeight: 1.5 }}>{photo.funFact}</div>
             </div>
           )}
-          <button onClick={() => fileRef.current.click()} style={{ width: "100%", background: "transparent", border: `1px dashed ${steel}`, borderRadius: 6, padding: "10px", cursor: "pointer", color: muted, fontFamily: "Roboto Mono, monospace", fontSize: 11, letterSpacing: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
+          <button onClick={() => fileRef.current.click()} style={{ width: "100%", background: "transparent", border: `1px dashed ${steel}`, borderRadius: 6, padding: "10px", cursor: "pointer", color: muted, fontFamily: "Roboto Mono, monospace", fontSize: 11, letterSpacing: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: 8, marginBottom: 10 }}>
             📷 {photo.image ? "CHANGE PHOTO" : "UPLOAD PHOTO"}
+          </button>
+
+          {/* Delete button with confirmation */}
+          <button
+            onClick={handleDelete}
+            onMouseLeave={() => setConfirmDelete(false)}
+            style={{ width: "100%", background: confirmDelete ? "#3B1A1A" : "transparent", border: `1px solid ${confirmDelete ? "#8B3A3A" : "#2A3B5A"}`, borderRadius: 6, padding: "10px", cursor: "pointer", color: confirmDelete ? "#FF6B6B" : "#4A5B7A", fontFamily: "Roboto Mono, monospace", fontSize: 11, letterSpacing: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: 8, transition: "all 0.2s" }}>
+            🗑️ {confirmDelete ? "TAP AGAIN TO CONFIRM DELETE" : "REMOVE FROM LOGBOOK"}
           </button>
         </div>
       </div>
@@ -625,6 +674,11 @@ export default function App() {
     setSelectedPhoto(sp => sp && sp.id === id ? { ...sp, ...updates } : sp);
   };
   const addPhoto = (photo) => setPhotos(ps => [photo, ...ps]);
+
+  const deletePhoto = (id) => {
+    setPhotos(ps => ps.filter(p => p.id !== id));
+    setSelectedPhoto(null);
+  };
 
   const filtered = photos.filter(p => {
     if (filterType !== "All" && p.type !== filterType) return false;
@@ -853,9 +907,15 @@ export default function App() {
                     </div>
                     <div style={{ color: muted, fontFamily: "Inter, sans-serif", fontSize: 11, marginTop: 2 }}>{p.location}</div>
                   </div>
-                  <div style={{ textAlign: "right" }}>
+                  <div style={{ textAlign: "right", display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 6 }}>
                     <div style={{ background: steel, color: muted, fontSize: 9, padding: "3px 8px", borderRadius: 3, fontFamily: "Roboto Mono, monospace", letterSpacing: 1 }}>{p.type}</div>
-                    <div style={{ color: "#4A5B7A", fontSize: 10, fontFamily: "Roboto Mono, monospace", marginTop: 4 }}>{p.era}</div>
+                    <div style={{ color: "#4A5B7A", fontSize: 10, fontFamily: "Roboto Mono, monospace" }}>{p.era}</div>
+                    <button
+                      onClick={e => { e.stopPropagation(); if (window.confirm(`Remove "${p.title}" from the logbook?`)) deletePhoto(p.id); }}
+                      style={{ background: "transparent", border: "1px solid #2A3B5A", color: "#4A5B7A", borderRadius: 4, padding: "2px 8px", fontSize: 10, cursor: "pointer", fontFamily: "Roboto Mono, monospace", letterSpacing: 1 }}
+                      onMouseEnter={e => { e.currentTarget.style.borderColor = "#8B3A3A"; e.currentTarget.style.color = "#FF6B6B"; }}
+                      onMouseLeave={e => { e.currentTarget.style.borderColor = "#2A3B5A"; e.currentTarget.style.color = "#4A5B7A"; }}
+                    >🗑️ DEL</button>
                   </div>
                 </div>
               ))}
@@ -875,7 +935,7 @@ export default function App() {
       </div>
 
       {/* Modals */}
-      {selectedPhoto && <Modal photo={selectedPhoto} onClose={() => setSelectedPhoto(null)} onToggleFavorite={toggleFavorite} onUpdatePhoto={updatePhoto} />}
+      {selectedPhoto && <Modal photo={selectedPhoto} onClose={() => setSelectedPhoto(null)} onToggleFavorite={toggleFavorite} onUpdatePhoto={updatePhoto} onDelete={deletePhoto} />}
       {showAdd && <AddPhotoModal onClose={() => setShowAdd(false)} onAdd={addPhoto} />}
       {showAI && <AIIdentifierModal onClose={() => setShowAI(false)} onAddIdentified={addPhoto} />}
       {showSlideshow && <Slideshow photos={photos} onClose={() => setShowSlideshow(false)} />}
