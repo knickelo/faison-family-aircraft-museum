@@ -72,67 +72,60 @@ const BadgeLogo = ({ size = 120 }) => (
     {/* Outer navy ring */}
     <circle cx="100" cy="100" r="95" fill="none" stroke="#0B0F1E" strokeWidth="3" />
     {/* Inner navy ring */}
-    <circle cx="100" cy="100" r="82" fill="none" stroke="#0B0F1E" strokeWidth="1.2" />
+    <circle cx="100" cy="100" r="80" fill="none" stroke="#0B0F1E" strokeWidth="1.2" />
 
-    {/* Top arc text */}
-    <path id="tArc" d="M 24 100 A 76 76 0 1 1 176 100" fill="none" />
-    <text fontFamily="Arial, sans-serif" fontSize="7.5" fill="#0B0F1E" fontWeight="bold" letterSpacing="1.5">
-      <textPath href="#tArc" startOffset="5%">1:48 SCALE  ✦  HISTORY IN MINIATURE</textPath>
+    {/* Top arc text — sits between inner and outer rings */}
+    <path id="tArc" d="M 21 95 A 79 79 0 1 1 179 95" fill="none" />
+    <text fontFamily="Arial, sans-serif" fontSize="7" fill="#0B0F1E" fontWeight="bold" letterSpacing="1.2">
+      <textPath href="#tArc" startOffset="6%">1:48 SCALE  ✦  HISTORY IN MINIATURE</textPath>
     </text>
 
-    {/* Three plane silhouettes — navy on gold, simple top-down view */}
     {/* Left plane */}
-    <g transform="translate(38, 68) rotate(-30) scale(0.38)">
-      <ellipse cx="0" cy="0" rx="5" ry="22" fill="#0B0F1E" />
-      <polygon points="0,-5 -28,8 -24,14 0,4 24,14 28,8" fill="#0B0F1E" />
-      <polygon points="0,12 -12,20 -10,24 0,16 10,24 12,20" fill="#0B0F1E" />
+    <g transform="translate(40, 65) rotate(-25) scale(0.36)">
+      <ellipse cx="0" cy="0" rx="4" ry="20" fill="#0B0F1E" />
+      <polygon points="0,-4 -26,7 -22,13 0,3 22,13 26,7" fill="#0B0F1E" />
+      <polygon points="0,11 -11,18 -9,22 0,15 9,22 11,18" fill="#0B0F1E" />
     </g>
-    {/* Center plane — larger */}
-    <g transform="translate(100, 60) scale(0.52)">
-      <ellipse cx="0" cy="0" rx="5" ry="24" fill="#0B0F1E" />
-      <polygon points="0,-5 -32,9 -28,16 0,5 28,16 32,9" fill="#0B0F1E" />
-      <polygon points="0,14 -14,23 -12,27 0,18 12,27 14,23" fill="#0B0F1E" />
+    {/* Center plane */}
+    <g transform="translate(100, 55) scale(0.5)">
+      <ellipse cx="0" cy="0" rx="4" ry="22" fill="#0B0F1E" />
+      <polygon points="0,-4 -30,8 -26,15 0,4 26,15 30,8" fill="#0B0F1E" />
+      <polygon points="0,13 -13,21 -11,25 0,17 11,25 13,21" fill="#0B0F1E" />
     </g>
     {/* Right plane */}
-    <g transform="translate(162, 68) rotate(30) scale(0.38)">
-      <ellipse cx="0" cy="0" rx="5" ry="22" fill="#0B0F1E" />
-      <polygon points="0,-5 -28,8 -24,14 0,4 24,14 28,8" fill="#0B0F1E" />
-      <polygon points="0,12 -12,20 -10,24 0,16 10,24 12,20" fill="#0B0F1E" />
+    <g transform="translate(160, 65) rotate(25) scale(0.36)">
+      <ellipse cx="0" cy="0" rx="4" ry="20" fill="#0B0F1E" />
+      <polygon points="0,-4 -26,7 -22,13 0,3 22,13 26,7" fill="#0B0F1E" />
+      <polygon points="0,11 -11,18 -9,22 0,15 9,22 11,18" fill="#0B0F1E" />
     </g>
 
-    {/* Navy center ribbon */}
-    <rect x="20" y="112" width="160" height="46" fill="#0B0F1E" />
-    {/* Left point */}
-    <polygon points="20,112 20,158 4,135" fill="#0B0F1E" />
-    {/* Right point */}
-    <polygon points="180,112 180,158 196,135" fill="#0B0F1E" />
-    {/* Gold accent on ribbon sides */}
-    <polygon points="20,112 20,135 4,135" fill="#9A7832" />
-    <polygon points="180,112 180,135 196,135" fill="#9A7832" />
+    {/* Navy ribbon — carefully positioned in lower third */}
+    <rect x="22" y="100" width="156" height="46" fill="#0B0F1E" />
+    <polygon points="22,100 22,146 5,123" fill="#0B0F1E" />
+    <polygon points="178,100 178,146 195,123" fill="#0B0F1E" />
+    {/* Darker wing accents */}
+    <polygon points="22,100 22,123 5,123" fill="#1B2B4B" />
+    <polygon points="178,100 178,123 195,123" fill="#1B2B4B" />
 
-    {/* FAISON — gold on navy */}
-    <text x="100" y="135" textAnchor="middle" fill="#C9A84C" fontSize="24" fontWeight="900" fontFamily="Arial Black, Arial, sans-serif" letterSpacing="5">FAISON</text>
-
+    {/* FAISON */}
+    <text x="100" y="121" textAnchor="middle" fill="#C9A84C" fontSize="22" fontWeight="900" fontFamily="Arial Black, Arial, sans-serif" letterSpacing="4">FAISON</text>
     {/* Divider */}
-    <line x1="30" y1="139" x2="170" y2="139" stroke="#C9A84C" strokeWidth="0.7" opacity="0.5" />
-
-    {/* FAMILY — gold on navy */}
-    <text x="100" y="149" textAnchor="middle" fill="#C9A84C" fontSize="10" fontWeight="800" fontFamily="Arial, sans-serif" letterSpacing="5">FAMILY</text>
-
+    <line x1="32" y1="125" x2="168" y2="125" stroke="#C9A84C" strokeWidth="0.6" opacity="0.5" />
+    {/* FAMILY */}
+    <text x="100" y="135" textAnchor="middle" fill="#C9A84C" fontSize="9.5" fontWeight="800" fontFamily="Arial, sans-serif" letterSpacing="4">FAMILY</text>
     {/* Divider */}
-    <line x1="30" y1="152" x2="170" y2="152" stroke="#C9A84C" strokeWidth="0.5" opacity="0.4" />
+    <line x1="32" y1="138" x2="168" y2="138" stroke="#C9A84C" strokeWidth="0.5" opacity="0.4" />
+    {/* AIRCRAFT MUSEUM */}
+    <text x="100" y="145" textAnchor="middle" fill="#C9A84C" fontSize="6.5" fontWeight="700" fontFamily="Arial, sans-serif" letterSpacing="2">AIRCRAFT MUSEUM</text>
 
-    {/* AIRCRAFT MUSEUM — gold on navy */}
-    <text x="100" y="158" textAnchor="middle" fill="#C9A84C" fontSize="7" fontWeight="700" fontFamily="Arial, sans-serif" letterSpacing="2">AIRCRAFT MUSEUM</text>
+    {/* Star — sits just below ribbon */}
+    <circle cx="100" cy="160" r="9" fill="#C9A84C" stroke="#0B0F1E" strokeWidth="1.8" />
+    <polygon points="100,153 101.7,158 107,158 102.8,161 104.3,166 100,163 95.7,166 97.2,161 93,158 98.3,158" fill="#0B0F1E" />
 
-    {/* Star */}
-    <circle cx="100" cy="175" r="10" fill="#C9A84C" stroke="#0B0F1E" strokeWidth="1.8" />
-    <polygon points="100,168 101.8,173 107,173 103,176 104.5,181 100,178 95.5,181 97,176 93,173 98.2,173" fill="#0B0F1E" />
-
-    {/* Bottom arc text */}
-    <path id="bArc" d="M 24 100 A 76 76 0 0 0 176 100" fill="none" />
-    <text fontFamily="Arial, sans-serif" fontSize="6.5" fill="#0B0F1E" letterSpacing="0.8">
-      <textPath href="#bArc" startOffset="5%">BUILT WITH PASSION  ✦  DISPLAYED WITH PRIDE</textPath>
+    {/* Bottom arc text — carefully placed below star, above outer ring */}
+    <path id="bArc" d="M 26 115 A 74 74 0 0 0 174 115" fill="none" />
+    <text fontFamily="Arial, sans-serif" fontSize="6" fill="#0B0F1E" letterSpacing="0.6">
+      <textPath href="#bArc" startOffset="6%">BUILT WITH PASSION  ✦  DISPLAYED WITH PRIDE</textPath>
     </text>
   </svg>
 );
