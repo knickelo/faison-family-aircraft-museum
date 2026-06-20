@@ -795,7 +795,7 @@ export default function App() {
 
       {/* Top bar */}
       <div style={{ background: "#0D1220", borderBottom: `1px solid ${steel}`, padding: "12px 20px", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, zIndex: 100 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+        <div onClick={() => setView("home")} style={{ display: "flex", alignItems: "center", gap: 12, cursor: "pointer" }}>
           <BadgeLogo size={40} />
           <div>
             <div style={{ color: gold, fontFamily: "Oswald, sans-serif", fontSize: 15, fontWeight: 700, letterSpacing: 2, lineHeight: 1 }}>FAISON FAMILY</div>
