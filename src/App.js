@@ -72,63 +72,64 @@ const BadgeLogo = ({ size = 120 }) => (
     {/* Outer navy ring */}
     <circle cx="100" cy="100" r="95" fill="none" stroke="#0B0F1E" strokeWidth="3" />
     {/* Inner navy ring */}
-    <circle cx="100" cy="100" r="80" fill="none" stroke="#0B0F1E" strokeWidth="1.2" />
+    <circle cx="100" cy="100" r="78" fill="none" stroke="#0B0F1E" strokeWidth="1.2" />
 
-    {/* Top arc text — perfectly centered, "H" in HISTORY near top center */}
-    <path id="tArc" d="M 100 20 m -78 0 a 78 78 0 0 1 156 0" fill="none" />
-    <text fontFamily="Arial, sans-serif" fontSize="7" fill="#0B0F1E" fontWeight="bold" letterSpacing="1.2">
-      <textPath href="#tArc" startOffset="50%" textAnchor="middle">1:48 SCALE  ✦  HISTORY IN MINIATURE</textPath>
+    {/* Top arc text — between inner (r=78) and outer (r=95) rings, centered */}
+    <path id="tArc" d="M 100 22 A 78 78 0 0 1 178 100" fill="none" />
+    <path id="tArcFull" d="M 8 85 A 92 92 0 0 1 192 85" fill="none" />
+    <text fontFamily="Arial, sans-serif" fontSize="7" fill="#0B0F1E" fontWeight="bold" letterSpacing="1.5">
+      <textPath href="#tArcFull" startOffset="50%" textAnchor="middle">1:48 SCALE  ✦  HISTORY IN MINIATURE</textPath>
     </text>
 
-    {/* W-FORMATION PLANES */}
-    {/* Center plane — largest, pointing up, nose near top text */}
-    <g transform="translate(100, 72) scale(0.52)">
+    {/* W-FORMATION PLANES — centered between inner ring top and ribbon */}
+    {/* Center plane — moved up, nose near inner ring top */}
+    <g transform="translate(100, 60) scale(0.5)">
       <ellipse cx="0" cy="0" rx="4" ry="22" fill="#0B0F1E" />
       <polygon points="0,-4 -30,8 -26,15 0,4 26,15 30,8" fill="#0B0F1E" />
       <polygon points="0,13 -13,21 -11,25 0,17 11,25 13,21" fill="#0B0F1E" />
     </g>
-    {/* Left plane — pulled in close, angled down-left to form W */}
-    <g transform="translate(68, 82) rotate(-20) scale(0.36)">
+    {/* Left plane — in close, W shape, moved up */}
+    <g transform="translate(68, 70) rotate(-20) scale(0.36)">
       <ellipse cx="0" cy="0" rx="4" ry="20" fill="#0B0F1E" />
       <polygon points="0,-4 -26,7 -22,13 0,3 22,13 26,7" fill="#0B0F1E" />
       <polygon points="0,11 -11,18 -9,22 0,15 9,22 11,18" fill="#0B0F1E" />
     </g>
-    {/* Right plane — pulled in close, angled down-right to form W */}
-    <g transform="translate(132, 82) rotate(20) scale(0.36)">
+    {/* Right plane — in close, W shape, moved up */}
+    <g transform="translate(132, 70) rotate(20) scale(0.36)">
       <ellipse cx="0" cy="0" rx="4" ry="20" fill="#0B0F1E" />
       <polygon points="0,-4 -26,7 -22,13 0,3 22,13 26,7" fill="#0B0F1E" />
       <polygon points="0,11 -11,18 -9,22 0,15 9,22 11,18" fill="#0B0F1E" />
     </g>
 
-    {/* Navy ribbon — moved up, points centered at y=100 (circle center) */}
-    <rect x="22" y="90" width="156" height="44" fill="#0B0F1E" />
-    {/* Left point — tip at circle center y=100, centered vertically on ribbon */}
-    <polygon points="22,90 22,134 4,112" fill="#0B0F1E" />
+    {/* Navy ribbon — taller to show AIRCRAFT MUSEUM, points centered */}
+    <rect x="22" y="90" width="156" height="50" fill="#0B0F1E" />
+    {/* Left point — tip centered at y=115 */}
+    <polygon points="22,90 22,140 4,115" fill="#0B0F1E" />
     {/* Right point */}
-    <polygon points="178,90 178,134 196,112" fill="#0B0F1E" />
+    <polygon points="178,90 178,140 196,115" fill="#0B0F1E" />
     {/* Darker wing accents */}
-    <polygon points="22,90 22,112 4,112" fill="#1B2B4B" />
-    <polygon points="178,90 178,112 196,112" fill="#1B2B4B" />
+    <polygon points="22,90 22,115 4,115" fill="#1B2B4B" />
+    <polygon points="178,90 178,115 196,115" fill="#1B2B4B" />
 
     {/* FAISON */}
-    <text x="100" y="111" textAnchor="middle" fill="#C9A84C" fontSize="22" fontWeight="900" fontFamily="Arial Black, Arial, sans-serif" letterSpacing="4">FAISON</text>
+    <text x="100" y="112" textAnchor="middle" fill="#C9A84C" fontSize="22" fontWeight="900" fontFamily="Arial Black, Arial, sans-serif" letterSpacing="4">FAISON</text>
     {/* Divider */}
-    <line x1="32" y1="115" x2="168" y2="115" stroke="#C9A84C" strokeWidth="0.6" opacity="0.5" />
+    <line x1="32" y1="116" x2="168" y2="116" stroke="#C9A84C" strokeWidth="0.6" opacity="0.5" />
     {/* FAMILY */}
-    <text x="100" y="125" textAnchor="middle" fill="#C9A84C" fontSize="9.5" fontWeight="800" fontFamily="Arial, sans-serif" letterSpacing="4">FAMILY</text>
+    <text x="100" y="126" textAnchor="middle" fill="#C9A84C" fontSize="9.5" fontWeight="800" fontFamily="Arial, sans-serif" letterSpacing="4">FAMILY</text>
     {/* Divider */}
-    <line x1="32" y1="128" x2="168" y2="128" stroke="#C9A84C" strokeWidth="0.5" opacity="0.4" />
+    <line x1="32" y1="129" x2="168" y2="129" stroke="#C9A84C" strokeWidth="0.5" opacity="0.4" />
     {/* AIRCRAFT MUSEUM */}
-    <text x="100" y="134" textAnchor="middle" fill="#C9A84C" fontSize="6.5" fontWeight="700" fontFamily="Arial, sans-serif" letterSpacing="2">AIRCRAFT MUSEUM</text>
+    <text x="100" y="137" textAnchor="middle" fill="#C9A84C" fontSize="6.5" fontWeight="700" fontFamily="Arial, sans-serif" letterSpacing="2">AIRCRAFT MUSEUM</text>
 
-    {/* Star — centered between bottom text words */}
-    <circle cx="100" cy="158" r="9" fill="#C9A84C" stroke="#0B0F1E" strokeWidth="1.8" />
-    <polygon points="100,151 101.7,156 107,156 102.8,159 104.3,164 100,161 95.7,164 97.2,159 93,156 98.3,156" fill="#0B0F1E" />
+    {/* Star — centered between ribbon bottom and bottom text */}
+    <circle cx="100" cy="160" r="9" fill="#C9A84C" stroke="#0B0F1E" strokeWidth="1.8" />
+    <polygon points="100,153 101.7,158 107,158 102.8,161 104.3,166 100,163 95.7,166 97.2,161 93,158 98.3,158" fill="#0B0F1E" />
 
-    {/* Bottom arc text — perfectly centered, star sits at midpoint */}
-    <path id="bArc" d="M 100 180 m -78 0 a 78 78 0 0 1 156 0" fill="none" />
-    <text fontFamily="Arial, sans-serif" fontSize="6" fill="#0B0F1E" letterSpacing="0.6">
-      <textPath href="#bArc" startOffset="50%" textAnchor="middle">BUILT WITH PASSION  ✦  DISPLAYED WITH PRIDE</textPath>
+    {/* Bottom arc text — between inner (r=78) and outer (r=95) rings, centered */}
+    <path id="bArcFull" d="M 8 115 A 92 92 0 0 0 192 115" fill="none" />
+    <text fontFamily="Arial, sans-serif" fontSize="6.5" fill="#0B0F1E" fontWeight="bold" letterSpacing="1">
+      <textPath href="#bArcFull" startOffset="50%" textAnchor="middle">BUILT WITH PASSION  ✦  DISPLAYED WITH PRIDE</textPath>
     </text>
   </svg>
 );
