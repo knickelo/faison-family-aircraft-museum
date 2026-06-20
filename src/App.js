@@ -74,10 +74,9 @@ const BadgeLogo = ({ size = 120 }) => (
     {/* Inner navy ring */}
     <circle cx="100" cy="100" r="78" fill="none" stroke="#0B0F1E" strokeWidth="1.2" />
 
-    {/* Top arc text — between inner (r=78) and outer (r=95) rings, centered */}
-    <path id="tArc" d="M 100 22 A 78 78 0 0 1 178 100" fill="none" />
-    <path id="tArcFull" d="M 8 85 A 92 92 0 0 1 192 85" fill="none" />
-    <text fontFamily="Arial, sans-serif" fontSize="7" fill="#0B0F1E" fontWeight="bold" letterSpacing="1.5">
+    {/* Top arc text — sits IN the band between inner ring (r=78) and outer ring (r=95) */}
+    <path id="tArcFull" d="M 14 75 A 87 87 0 0 1 186 75" fill="none" />
+    <text fontFamily="Arial, sans-serif" fontSize="6.5" fill="#0B0F1E" fontWeight="bold" letterSpacing="1.2">
       <textPath href="#tArcFull" startOffset="50%" textAnchor="middle">1:48 SCALE  ✦  HISTORY IN MINIATURE</textPath>
     </text>
 
@@ -126,8 +125,8 @@ const BadgeLogo = ({ size = 120 }) => (
     <circle cx="100" cy="160" r="9" fill="#C9A84C" stroke="#0B0F1E" strokeWidth="1.8" />
     <polygon points="100,153 101.7,158 107,158 102.8,161 104.3,166 100,163 95.7,166 97.2,161 93,158 98.3,158" fill="#0B0F1E" />
 
-    {/* Bottom arc text — between inner (r=78) and outer (r=95) rings, centered */}
-    <path id="bArcFull" d="M 8 115 A 92 92 0 0 0 192 115" fill="none" />
+    {/* Bottom arc text — sits IN the band between inner ring (r=78) and outer ring (r=95) */}
+    <path id="bArcFull" d="M 14 125 A 87 87 0 0 0 186 125" fill="none" />
     <text fontFamily="Arial, sans-serif" fontSize="6.5" fill="#0B0F1E" fontWeight="bold" letterSpacing="1">
       <textPath href="#bArcFull" startOffset="50%" textAnchor="middle">BUILT WITH PASSION  ✦  DISPLAYED WITH PRIDE</textPath>
     </text>
